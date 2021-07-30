@@ -1,0 +1,14 @@
+/* minor fix for top border showing in table of bootstrap */
+table {
+  border: none !important;
+}
+
+table,
+table th {
+  border: none !important;
+}
+
+/* table,
+table td{
+  border: none !important;
+} */

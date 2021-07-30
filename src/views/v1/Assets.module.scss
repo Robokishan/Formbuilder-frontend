@@ -1,0 +1,80 @@
+@import "../../assets/scss/argon-dashboard-react.scss";
+
+.tableAsset {
+  max-height: 600px;
+  // border-style: solid;
+  // border-color: red;
+}
+
+.tableNormalHeader {
+  z-index: 1;
+}
+
+.topFix {
+  background-color: #1d345d !important;
+  top: 0px;
+  position: sticky;
+}
+
+.leftFix {
+    background-color: #172b4d;
+    left: 0px;
+    position: sticky;
+    z-index: 1 !important;
+}
+
+.leftTopFix {
+  top: 0px;
+  left: 0px;
+  position: sticky;
+  z-index: 5 !important;
+}
+
+// remove all styling of button
+.no-decoration-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.action-buttons-correct {
+    margin-right: 5px;
+}
+
+.action-buttons-cross {
+    margin-right: 5px;
+}
+
+.input-asset-id {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid gray;
+  outline: 0;
+//   font-size: 1.3rem;
+  padding: 0px !important;
+  color: white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+}
+
+.input-asset-id:focus {
+//   padding-bottom: 6px;  
+//   font-weight: 700;
+  border-width: 1px;
+  border-image: linear-gradient(to right, #30569B,#30569B);
+  border-image-slice: 1;
+}
+/* reset input */
+.input-asset-id{
+  &:required,&:invalid { box-shadow:none; }
+}
