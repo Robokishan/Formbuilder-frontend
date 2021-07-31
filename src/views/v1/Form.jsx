@@ -25,12 +25,17 @@ export default function Form(props) {
 
   const onFormSubmit = (data) => {
     console.log("form data", JSON.stringify(data));
-  }
+  };
 
   let query = useQuery();
 
   const defaultForm = () => {
-    return <ReactFormGenerator onSubmit={ (e) => onFormSubmit(e)} data={form.form.task_data} />;
+    return (
+      <ReactFormGenerator
+        onSubmit={(e) => onFormSubmit(e)}
+        data={form.form.task_data}
+      />
+    );
   };
 
   const Form = (type) => {
@@ -60,6 +65,9 @@ export default function Form(props) {
   return (
     <Container className="mt--7" fluid>
       <Card className="bg-secondary shadow border-0">
+        <div className=" mt-6 text-center text-muted mb-4">
+          <big>{form.title}</big>
+        </div>
         <CardBody className="px-lg-5 py-lg-5">
           {!isFetching && form?.form?.task_data?.length > 0 ? (
             Form(query.get("type"))

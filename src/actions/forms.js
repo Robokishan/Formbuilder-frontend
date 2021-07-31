@@ -43,6 +43,24 @@ export const getForm =
     }
   };
 
+
+  export const getPublicForm =
+  ( formId ) =>
+  async (dispatch) => {
+    dispatch({type: FETCHING_FORMS})
+    try {
+      const apiUrl = `/api/v1/p/asset/${formId}`;
+      const response = await axios.get(apiUrl);
+      const payload = response.data;
+      dispatch({
+        type: GET_FORM,
+        payload:payload,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export const addResponse = ({formId, formData}) => 
 async (dispatch) => {
   dispatch({type: SUBMIT_FORM})
