@@ -1,26 +1,41 @@
 /*eslint eqeqeq: "off"*/
 
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // reactstrap components
-import { Card, CardHeader,Modal, Container, Media, Row, Table, UncontrolledTooltip } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  Modal,
+  Container,
+  Media,
+  Row,
+  Table,
+  UncontrolledTooltip,
+} from "reactstrap";
 // core components
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Route, Switch } from "react-router-dom";
-import { deleteForm, getFormsList } from "../../actions/forms";
+import { deleteForm } from "../../actions/forms";
 import { Button } from "reactstrap";
 import Form from "./Form";
 
 export default function Forms(props) {
-  const [linkModal, setlinkModal] = useState(false)
-  const [publicLink, setpublicLink] = useState("")
-  const [copiedText, setcopiedText] = useState("")
+  const [linkModal, setlinkModal] = useState(false);
+  const [publicLink, setpublicLink] = useState("");
+  const [copiedText, setcopiedText] = useState("");
   const forms = useSelector((store) => store.forms.forms);
   const dispatch = useDispatch();
 
   const getTableBody = () => {
-    let tablebody = null;
+    let totalHeader = 3;
+    let tablebody = (
+      <tr>
+        <td colSpan={totalHeader} align="center">
+          Nothing Found
+        </td>
+      </tr>
+    );
     if (forms.length > 0) {
       tablebody = forms.map((form, index) => {
         return (
@@ -40,12 +55,31 @@ export default function Forms(props) {
               </td>
               <td>{form.description}</td>
               <td>
-                <Button onClick={ e=> props.history.push(`${props.match.path}/${form._id}?type=2`)} color="success">Edit</Button>
-                <Button onClick={ e=> dispatch(deleteForm(form._id)) } color="danger">Delete</Button>
-                <Button onClick={ e=> {
-                  setlinkModal(!linkModal)
-                  setpublicLink(`${window.location.origin}/admin/public/form/${form._id}`)
-                } } color="info">Get Link</Button>
+                <Button
+                  onClick={(e) =>
+                    props.history.push(`${props.match.path}/${form._id}?type=2`)
+                  }
+                  color="success"
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={(e) => dispatch(deleteForm(form._id))}
+                  color="danger"
+                >
+                  Delete
+                </Button>
+                <Button
+                  onClick={(e) => {
+                    setlinkModal(!linkModal);
+                    setpublicLink(
+                      `${window.location.origin}/public/form/${form._id}`
+                    );
+                  }}
+                  color="info"
+                >
+                  Get Link
+                </Button>
               </td>
             </tr>
           </>
@@ -80,62 +114,60 @@ export default function Forms(props) {
             </Card>
           </div>
           <Modal
-          className="modal-dialog-centered"
-          isOpen={linkModal}
-          toggle={() => setlinkModal(!linkModal)}
-        >
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
-              Public Link
-            </h5>
-            <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              type="button"
-              onClick={() => setlinkModal(!linkModal)}
-            >
-              <span aria-hidden={true}>×</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            {console.log(publicLink)}
-            <CopyToClipboard
-            text={publicLink}
-            onCopy={() =>  setcopiedText(publicLink) }
+            className="modal-dialog-centered"
+            isOpen={linkModal}
+            toggle={() => setlinkModal(!linkModal)}
           >
-            <Button
-              className="btn-icon-clipboard"
-              id="tooltip982655500"
-              type="button"
-            >
-              <div>
-                <i className="ni ni-active-40" />
-                <span>{publicLink}</span>
-              </div>
-            </Button>
-          </CopyToClipboard>
-          <UncontrolledTooltip
-            delay={0}
-            trigger="hover focus"
-            target="tooltip982655500"
-          >
-            {copiedText === publicLink
-              ? "Copied"
-              : "Copy To Clipboard"}
-          </UncontrolledTooltip>
-          </div>
-          <div className="modal-footer">
-            <Button
-              color="secondary"
-              data-dismiss="modal"
-              type="button"
-              onClick={() => setlinkModal(!linkModal)}
-            >
-              Close
-            </Button>
-          </div>
-        </Modal>
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Public Link
+              </h5>
+              <button
+                aria-label="Close"
+                className="close"
+                data-dismiss="modal"
+                type="button"
+                onClick={() => setlinkModal(!linkModal)}
+              >
+                <span aria-hidden={true}>×</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              {console.log(publicLink)}
+              <CopyToClipboard
+                text={publicLink}
+                onCopy={() => setcopiedText(publicLink)}
+              >
+                <Button
+                  className="btn-icon-clipboard"
+                  id="tooltip982655500"
+                  type="button"
+                >
+                  <div>
+                    <i className="ni ni-active-40" />
+                    <span>{publicLink}</span>
+                  </div>
+                </Button>
+              </CopyToClipboard>
+              <UncontrolledTooltip
+                delay={0}
+                trigger="hover focus"
+                target="tooltip982655500"
+              >
+                {copiedText === publicLink ? "Copied" : "Copy To Clipboard"}
+              </UncontrolledTooltip>
+            </div>
+            <div className="modal-footer">
+              <Button
+                color="secondary"
+                data-dismiss="modal"
+                type="button"
+                onClick={() => setlinkModal(!linkModal)}
+              >
+                Close
+              </Button>
+            </div>
+          </Modal>
         </Row>
       </Container>
     );
@@ -146,9 +178,9 @@ export default function Forms(props) {
       <Switch>
         <Route path={props.match.path} exact render={form} />
         <Route
-        exact
+          exact
           path={`${props.match.path}/:assetId`}
-          render={(props) => <Form formId={props.match.params.assetId}/>}
+          render={(props) => <Form formId={props.match.params.assetId} />}
         />
       </Switch>
     </>

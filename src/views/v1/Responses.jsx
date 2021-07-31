@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import { Card, CardHeader, Container, Media, Table } from "reactstrap";
+import { Card, Row, CardHeader, Container, Media, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteAnswer,
-  getAnswersList,
-} from "../../actions/formAnswers";
+import { deleteAnswer, getAnswersList } from "../../actions/formAnswers";
 import { Button } from "reactstrap";
 import Response from "./Response";
 
@@ -18,7 +15,14 @@ export default function Responses(props) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getAnswersBody = () => {
-    let tablebody = null;
+    let totalHeader = 3;
+    let tablebody = (
+      <tr>
+        <td colSpan={totalHeader} align="center">
+          Nothing Found
+        </td>
+      </tr>
+    );
     if (answers.length > 0) {
       tablebody = answers.map((answer, index) => {
         return (
@@ -56,28 +60,37 @@ export default function Responses(props) {
 
   const form = () => {
     return (
-      <Card className="bg-default shadow">
-        <CardHeader className="bg-transparent border-0">
-          <h3 className="text-white mb-0">Forms</h3>
-        </CardHeader>
-        <Table className="align-items-center table-dark table-flush" responsive>
-          <thead className="thead-dark">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>{getAnswersBody()}</tbody>
-        </Table>
-      </Card>
+      <Row className="mt-5">
+        <div className="col">
+          <Card className="bg-default shadow">
+            <CardHeader className="bg-transparent border-0">
+              <h3 className="text-white mb-0">Forms</h3>
+            </CardHeader>
+            <Table
+              className="align-items-center table-dark table-flush"
+              responsive
+            >
+              <thead className="thead-dark">
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>{getAnswersBody()}</tbody>
+            </Table>
+          </Card>
+        </div>
+      </Row>
     );
   };
 
   return (
     <Container className="mt--7" fluid>
       {!props.match.params.responseId && form()}
-      {props.match.params.responseId && <Response responseId={props.match.params.responseId} />}
+      {props.match.params.responseId && (
+        <Response responseId={props.match.params.responseId} />
+      )}
     </Container>
   );
 }
