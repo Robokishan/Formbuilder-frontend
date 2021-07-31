@@ -9,3 +9,6 @@ export const GET_FORMS = 'GET_FORMS';
 export const GET_FORM = 'GET_FORM';
 export const DELETE_FORM = 'DELETE_FORM';
 export const UPDATE_FORM = 'UPDATE_FORM';
+export const FETCHING_FORMS = 'FETCHING_FORMS';
+export const UPDATE_NEW_FORM = 'UPDATE_NEW_FORM';
+export const ADD_NEW_FORM = 'ADD_NEW_FORM';

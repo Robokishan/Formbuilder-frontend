@@ -28,6 +28,8 @@ import { Provider } from "react-redux";
 import AdminLayout from "layouts/Admin";
 import AuthLayout from "layouts/Auth";
 import "./style.css";
+import "react-form-builder2/dist/app.css";
+
 if (process.env.NODE_ENV !== "development")
   console.log = console.warn = console.error = () => {};
 ReactDOM.render(
@@ -36,8 +38,7 @@ ReactDOM.render(
       <Provider store={store}>
         <Protectedroute path="/admin" component={AdminLayout} />
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-        {/*TODO: Ennable this if portfolio not enabled*/}
-        <Redirect from="/" to="/admin/forms" />
+        <Redirect exact path="/"  to="/admin/forms" />
       </Provider>
     </Switch>
   </BrowserRouter>,

@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 /*eslint-disable*/
 import React from "react";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
@@ -28,11 +11,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-  Form,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
   Media,
   Nav,
   Navbar,
@@ -145,8 +123,6 @@ class Sidebar extends React.Component {
                     <img
                       alt="..."
                       src={profile_picture}
-                      // src="
-                      // https://scontent.famd4-1.fna.fbcdn.net/v/t1.0-9/87804082_2432722850312092_3894873092169662464_n.jpg?_nc_cat=100&_nc_sid=85a577&_nc_oc=AQlnNHuZlVFfvgUdfTl1rkVnaKe3qBy5BDoG2DHR8rTYG-F90c8bJredQPPYxxo9vGg&_nc_ht=scontent.famd4-1.fna&oh=53479e2f32bc7c3b8c7f9da54bdc6882&oe=5E8D6AC6"
                     />
                   </span>
                 </Media>
@@ -154,10 +130,6 @@ class Sidebar extends React.Component {
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Welcome!</h6>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-single-02" />
-                  <span>My profile</span>
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem onClick={() => this.logout()}>
@@ -197,23 +169,6 @@ class Sidebar extends React.Component {
                 </Col>
               </Row>
             </div>
-            {/* Form */}
-            <Form className="mt-4 mb-3 d-md-none">
-              <InputGroup className="input-group-rounded input-group-merge">
-                <Input
-                  aria-label="Search"
-                  className="form-control-rounded form-control-prepended"
-                  placeholder="Search"
-                  type="search"
-                />
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <span className="fa fa-search" />
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
-            </Form>
-            {/* Navigation */}
             <Nav navbar>{this.createLinks(routes)}</Nav>
           </Collapse>
         </Container>

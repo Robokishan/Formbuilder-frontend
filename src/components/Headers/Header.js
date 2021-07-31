@@ -1,35 +1,11 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // reactstrap components
 import {Card, CardBody, CardTitle, Col, Container, Row} from "reactstrap";
-import {getOverview} from "../../utils/api/assets.js"
-import {eraseAllvalues} from "../../utils/storage/storage.js"
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function Header(props) {
 
   const formCount = useSelector((store) => store.forms.formCount);
-
-  const logout = () => {
-    eraseAllvalues();
-    props.history.push('/');
-  }
 
   return (
     <>

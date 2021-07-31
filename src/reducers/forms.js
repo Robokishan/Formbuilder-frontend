@@ -1,19 +1,23 @@
 import {
   GET_FORMS,
   GET_FORM,
+  UPDATE_NEW_FORM,
+  FETCHING_FORMS
 } from "../constants/actions";
 
 const initialState = {
   isFetching: false,
-  forms: false,
-  form: false,
-  formCount: 0
+  forms: {},
+  form: { title: "", description: "", form: [] },
+  formCount: 0,
+  newForm: { title: "", description: "", form: [] }
 };
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_FORMS: {
       return {
         ...state,
+        isFetching: false,
         forms: action.payload,
         formCount: action.payload.length
       };
@@ -21,8 +25,20 @@ export default (state = initialState, action) => {
     case GET_FORM:
       return {
         ...state,
+        isFetching: false,
         form: action.payload,
       };
+    case UPDATE_NEW_FORM:
+      return {
+        ...state,
+        newForm: {...state.newForm,[action.key]: action.payload}
+      }
+    case FETCHING_FORMS: 
+      return {
+        ...state,
+        isFetching: true
+      }
+      
     default:
       return state;
   }

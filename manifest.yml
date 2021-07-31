@@ -1,5 +1,5 @@
 ---
 applications:
-  - name:    quadx-admin
+  - name:    form-builder
     path: .
     memory:  256M

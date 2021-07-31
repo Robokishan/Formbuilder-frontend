@@ -1,12 +1,6 @@
 import React from "react";
 import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
-// import Avatar from "../static/img/avatar.png";
-// import Contact from "./Contact";
-// import Contact from "./Contact";
-import Quadxpng from 'assets/img/brand/quadx-white.png'
-import {Link} from "react-router-dom";
 import Modal from "reactstrap/es/Modal";
-import Contact from "../Public/Contact";
 
 export default class Navigation extends React.Component {
   constructor(props) {
@@ -40,17 +34,6 @@ export default class Navigation extends React.Component {
         <Navbar  color="dark" dark expand="md">
           <NavbarBrand onClick={() => this.handleMenu("/")} >
             <div className="avatar-container">
-              <img
-                alt="logo"
-                className="circle-avatar"
-                height={50}
-                src={Quadxpng}
-              />
-              {/*<div>*/}
-              {/*  <span>Kishan</span>*/}
-              {/*  <span>Joshi</span>*/}
-              {/*  <span>Developer</span>*/}
-              {/*</div>*/}
             </div>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />

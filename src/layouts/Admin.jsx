@@ -1,20 +1,6 @@
-/*!
+/*eslint eqeqeq: "off"*/
 
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import AdminNavbar from "components/Navbars/AdminNavbar";
@@ -45,8 +31,7 @@ class Admin extends React.Component {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         var path = prop.layout + prop.path;
-        // if(prop.arg) path+=prop.arg;
-        return <Route path={path} component={prop.component} key={key} />;
+        return <Route path={path} component={prop.component} key={`routes-${key}`} />;
       } else {
         return null;
       }
@@ -66,7 +51,7 @@ class Admin extends React.Component {
   };
   render() {
     var sideBarList = [];
-    routes.map((route) => {
+    routes.forEach((route) => {
       if (route.show == true) {
         sideBarList.push(route);
       }
@@ -77,11 +62,6 @@ class Admin extends React.Component {
         <Sidebar
           {...this.props}
           routes={sideBarList}
-          logo={{
-            innerLink: "/admin/forms",
-            imgSrc: require("assets/img/brand/quadx.png"),
-            imgAlt: "...",
-          }}
         />
         <div className="main-content" ref="mainContent">
           <AdminNavbar
@@ -93,11 +73,6 @@ class Admin extends React.Component {
             {this.getRoutes(routes)}
             <Redirect from="*" to="/admin/forms" />
           </Switch>
-
-          {/*creativ tiv author footer*/}
-          {/*<Container fluid>*/}
-          {/*  <AdminFooter />*/}
-          {/*</Container>*/}
         </div>
       </>
     );

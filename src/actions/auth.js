@@ -26,7 +26,6 @@ export const doLogin =
         dispatch({ type: LOGIN_ERROR, payload: "" });
       }
     } catch (error) {
-      console.log(error);
       if (error && error.status === 401) {
       }
       dispatch({ type: LOGIN_ERROR, payload: error });

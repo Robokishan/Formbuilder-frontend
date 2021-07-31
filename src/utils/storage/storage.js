@@ -28,7 +28,6 @@ module.exports = {
     },
 
     saveUserDetails: (value) => {
-        console.log("saving details",value)
         localStorage.setItem("details",JSON.stringify(value))
     },
     getUserDetails : () => {

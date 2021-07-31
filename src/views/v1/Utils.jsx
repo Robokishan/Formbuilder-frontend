@@ -170,13 +170,9 @@ class Utils extends React.Component {
         params: params,
         method: "get",
       };
-
-      console.log(request);
-
       const response = await axios(request);
 
       const processParams = await response.data;
-      console.log(processParams);
       var details = {
         action: "https://securegw-stage.paytm.in/order/process",
         params: processParams,
