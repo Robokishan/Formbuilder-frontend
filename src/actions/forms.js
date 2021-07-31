@@ -83,6 +83,7 @@ export const updateForm =
       const apiUrl = `/api/v1/asset/add`;
       const response = await axios.post(apiUrl,form);
       const payload = response.data;
+      dispatch(getFormsList());
       toast.success("New Form Added");
     } catch (error) {
       toast.error("Unable to add new Form");

@@ -19,10 +19,6 @@ export default function Form(props) {
     dispatch(getForm(props.formId));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    console.log("update form",form)
-  }, [form])
-
   const onChange = (data) => {
     dispatch({ type: UPDATE_EXSITING_FORM, key: "form", payload: data });
   };

@@ -14,6 +14,7 @@ import {
   FormGroup,
   Input,
 } from "reactstrap";
+import { toast } from 'react-toastify';
 
 export default function CreateForm() {
   const [showModal, setshowModal] = useState(false);
@@ -40,7 +41,10 @@ export default function CreateForm() {
   return (
     <Container className="mt--7" fluid>
       <FormGroup>
-        <Button color="success" onClick={(e) => setshowModal(true)}>
+        <Button color="success" onClick={(e) => {
+          if(newForm?.form?.task_data?.length > 0) setshowModal(true)
+          else toast.info("Please add some items in form")
+        }}>
           Create Form
         </Button>
       </FormGroup>
@@ -73,7 +77,7 @@ export default function CreateForm() {
                 <InputGroup className="input-group-alternative">
                   <Input
                     name="title"
-                    placeholder="Title"
+                    placeholder="Form Title"
                     onChange={(e) => onFormDetailChange(e)}
                   />
                 </InputGroup>
@@ -86,7 +90,7 @@ export default function CreateForm() {
                 <InputGroup className="input-group-alternative">
                   <Input
                     name="description"
-                    placeholder="Description"
+                    placeholder="Form Description"
                     onChange={(e) => onFormDetailChange(e)}
                   />
                 </InputGroup>
