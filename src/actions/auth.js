@@ -7,6 +7,7 @@ import {
   LOGIN_SUCCESS,
   USER_LOGOUT,
 } from "../constants/actions";
+import { toast } from "react-toastify";
 
 export const doLogin =
   ({ email, password }) =>
@@ -42,4 +43,13 @@ export const getAccountDetails = () => async (dispatch) => {
 
 export const onLogOut = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT });
+};
+
+export const doRegister = (newUser) => async (dispatch) => {
+  try {
+    const response = await APIHelper.post("/api/v1/owner/register", newUser )
+    toast.success(`Account created ${newUser.email} !`);
+  } catch (error) {
+    toast.error(error.message)
+  }
 };
