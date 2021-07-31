@@ -35,10 +35,6 @@ export default function Registration(props) {
     setform(user => ({...user, [name]: value }))
   }
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch(doRegister(user));
