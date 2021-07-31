@@ -31,6 +31,7 @@ import "./style.css";
 import "react-form-builder2/dist/app.css";
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Public from "layouts/Public";
 
 if (process.env.NODE_ENV !== "development")
   console.log = console.warn = console.error = () => {};
@@ -41,7 +42,8 @@ ReactDOM.render(
       <ToastContainer hideProgressBar={true} />
         <Protectedroute path="/admin" component={AdminLayout} />
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-        <Redirect exact path="/"  to="/admin/forms" />
+        <Route path="/public" render={(props) => <Public {...props} />} />
+        {/* <Redirect exact path="/"  to="/admin/forms" /> */}
       </Provider>
     </Switch>
   </BrowserRouter>,

@@ -23,17 +23,30 @@ export default function Form(props) {
     dispatch({ type: UPDATE_EXSITING_FORM, key: "form", payload: data });
   };
 
+  const onFormSubmit = (data) => {
+    console.log("form data", JSON.stringify(data));
+  }
+
   let query = useQuery();
+
+  const defaultForm = () => {
+    return <ReactFormGenerator onSubmit={ (e) => onFormSubmit(e)} data={form.form.task_data} />;
+  };
 
   const Form = (type) => {
     switch (type) {
       case "1":
-        return <ReactFormGenerator data={form.form.task_data} />;
+        return defaultForm();
       case "2":
         return (
           <>
             <FormGroup>
-              <Button color="success" onClick={ (e) => dispatch(updateForm({formId: props.formId, form:form})) }>
+              <Button
+                color="success"
+                onClick={(e) =>
+                  dispatch(updateForm({ formId: props.formId, form: form }))
+                }
+              >
                 Update Form
               </Button>
             </FormGroup>
@@ -41,7 +54,7 @@ export default function Form(props) {
           </>
         );
       default:
-        return <ReactFormGenerator data={form.form.task_data} />;
+        return defaultForm();
     }
   };
   return (
