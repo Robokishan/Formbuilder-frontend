@@ -2,7 +2,8 @@ import {
   GET_FORMS,
   GET_FORM,
   UPDATE_NEW_FORM,
-  FETCHING_FORMS
+  FETCHING_FORMS,
+  UPDATE_EXSITING_FORM
 } from "../constants/actions";
 
 const initialState = {
@@ -37,6 +38,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: true
+      }
+    case UPDATE_EXSITING_FORM:
+      return {
+        ...state,
+        form: {...state.form,[action.key]: action.payload}
       }
       
     default:

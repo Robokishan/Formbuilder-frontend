@@ -1,3 +1,5 @@
+/*eslint no-unused-vars: "off"*/
+
 import {
   GET_FORMS,
   GET_FORM,
@@ -5,7 +7,7 @@ import {
   UPDATE_FORM,
   FETCHING_FORMS
 } from "../constants/actions";
-
+import { toast } from 'react-toastify';
 import axios from "../helpers/APIHelper";
 
 // Get conversation meta info [Mainly for displaying counts]
@@ -50,8 +52,10 @@ export const deleteForm =
         type: DELETE_FORM,
         payload,
       });
+      toast.success("Form Deleted");
       dispatch(getFormsList());
     } catch (error) {
+      toast.error("Unable to Delete form");
       console.error(error);
     }
   };
@@ -63,11 +67,9 @@ export const updateForm =
       const apiUrl = `/api/v1/asset/${formId}`;
       const response = await axios.put(apiUrl, form );
       const payload = response.data;
-      dispatch({
-        type: UPDATE_FORM,
-        payload,
-      });
+      toast.success("Form Update");
     } catch (error) {
+      toast.error("Unable to Update form");
       console.error(error);
     }
   };
@@ -81,11 +83,9 @@ export const updateForm =
       const apiUrl = `/api/v1/asset/add`;
       const response = await axios.post(apiUrl,form);
       const payload = response.data;
-      dispatch({
-        type: UPDATE_FORM,
-        payload,
-      });
+      toast.success("New Form Added");
     } catch (error) {
+      toast.error("Unable to add new Form");
       console.error(error);
     }
   };

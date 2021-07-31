@@ -104,7 +104,10 @@ export default function CreateForm() {
             Close
           </Button>
           <Button
-            onClick={() => dispatch(addNewForm(newForm))}
+            onClick={() =>{ 
+              dispatch(addNewForm(newForm));
+              setshowModal(!showModal);
+            }}
             data-dismiss="modal"
             color="primary"
             type="button"
