@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Row, CardHeader, Container, Media, Table } from "reactstrap";
+import { Card, Row, CardHeader, Container, UncontrolledTooltip, Media, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAnswer, getAnswersList } from "../../actions/formAnswers";
@@ -34,14 +34,21 @@ export default function Responses(props) {
                 <Media className="align-items-center">
                   <Media>
                     <Link
+                    id={`form-title-${index}`}
                       to={`/admin/responses/${answer._id}`}
-                      style={{ color: "inherit", textDecoration: "inherit" }}
+                      style={{ color: "inherit", textDecoration: "underline"}}
                     >
                       {answer.title}
                     </Link>
                   </Media>
                 </Media>
               </td>
+              <UncontrolledTooltip
+                placement="auto"
+                target={`form-title-${index}`}
+              >
+                Click
+              </UncontrolledTooltip>
               <td>{answer.description}</td>
               <td>
                 <Button
@@ -71,6 +78,7 @@ export default function Responses(props) {
           <Card className="bg-default shadow">
             <CardHeader className="bg-transparent border-0">
               <h3 className="text-white mb-0">Forms</h3>
+              <h6 className="text-white mb-0">Click on title name for details</h6>
             </CardHeader>
             <Table
               className="align-items-center table-dark table-flush"

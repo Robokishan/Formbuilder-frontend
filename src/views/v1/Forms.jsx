@@ -43,12 +43,13 @@ export default function Forms(props) {
         return (
           <>
             <tr>
-              <td>
+              <td >
                 <Media className="align-items-center">
                   <Media>
                     <Link
+                    id={`form-title-${index}`}
                       to={`/admin/forms/${form._id}`}
-                      style={{ color: "inherit", textDecoration: "inherit" }}
+                      style={{ color: "inherit", textDecoration: "underline" }}
                     >
                       {form.title}
                     </Link>
@@ -56,6 +57,12 @@ export default function Forms(props) {
                 </Media>
               </td>
               <td>{form.description}</td>
+              <UncontrolledTooltip
+                placement="auto"
+                target={`form-title-${index}`}
+              >
+                Click
+              </UncontrolledTooltip>
               <td>
                 <Button
                   onClick={(e) =>
@@ -83,7 +90,7 @@ export default function Forms(props) {
                   Get Link
                 </Button>
               </td>
-              <td> 
+              <td>
                 {form.updated_at
                   ? moment(form.updated_at).format(FORMAT_DATE)
                   : "Not available"}
@@ -107,6 +114,7 @@ export default function Forms(props) {
             <Card className="bg-default shadow">
               <CardHeader className="bg-transparent border-0">
                 <h3 className="text-white mb-0">Forms</h3>
+                <h6 className="text-white mb-0">Click on title name for details</h6>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
