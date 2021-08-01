@@ -13,8 +13,11 @@ import {
   Col,
   FormGroup,
   Input,
+  Label,
+  Card,
+  CardBody,
 } from "reactstrap";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export default function CreateForm() {
   const [showModal, setshowModal] = useState(false);
@@ -41,10 +44,13 @@ export default function CreateForm() {
   return (
     <Container className="mt--7" fluid>
       <FormGroup>
-        <Button color="success" onClick={(e) => {
-          if(newForm?.form?.task_data?.length > 0) setshowModal(true)
-          else toast.info("Please add some items in form")
-        }}>
+        <Button
+          color="success"
+          onClick={(e) => {
+            if (newForm?.form?.task_data?.length > 0) setshowModal(true);
+            else toast.info("Please add some items in form");
+          }}
+        >
           Create Form
         </Button>
       </FormGroup>
@@ -57,7 +63,7 @@ export default function CreateForm() {
       >
         <div className="modal-header">
           <h5 className="modal-title" id="exampleModalLabel">
-            Form Title
+            Preview Form and save
           </h5>
           <button
             aria-label="Close"
@@ -70,33 +76,39 @@ export default function CreateForm() {
           </button>
         </div>
         <div className="modal-body">
-          <ReactFormGenerator hide_actions data={newForm.form.task_data}/>
-          <Row>
-            <Col md="12">
-              <FormGroup>
-                <InputGroup className="input-group-alternative">
-                  <Input
-                    name="title"
-                    placeholder="Form Title"
-                    onChange={(e) => onFormDetailChange(e)}
-                  />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col md="12">
-              <FormGroup>
-                <InputGroup className="input-group-alternative">
-                  <Input
-                    name="description"
-                    placeholder="Form Description"
-                    onChange={(e) => onFormDetailChange(e)}
-                  />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-          </Row>
+          <ReactFormGenerator hide_actions data={newForm.form.task_data} />
+          <hr className="my-3" />
+          <Card className="bg-light shadow border-0">
+            <CardBody className="px-lg-5 py-lg-5">
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <Label>Name your Form</Label>
+                    <InputGroup className="input-group-alternative">
+                      <Input
+                        name="title"
+                        placeholder="Form Title"
+                        onChange={(e) => onFormDetailChange(e)}
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col md="12">
+                  <FormGroup>
+                    <InputGroup className="input-group-alternative">
+                      <Input
+                        name="description"
+                        placeholder="Form Description"
+                        onChange={(e) => onFormDetailChange(e)}
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                </Col>
+              </Row>
+            </CardBody>
+          </Card>
         </div>
         <div className="modal-footer">
           <Button
@@ -108,7 +120,7 @@ export default function CreateForm() {
             Close
           </Button>
           <Button
-            onClick={() =>{ 
+            onClick={() => {
               dispatch(addNewForm(newForm));
               setshowModal(!showModal);
             }}

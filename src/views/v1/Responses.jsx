@@ -40,7 +40,6 @@ export default function Responses(props) {
                   </Media>
                 </Media>
               </td>
-              <td>{`/admin/responses/${answer._id}`}</td>
               <td>{answer.description}</td>
               <td>
                 <Button
