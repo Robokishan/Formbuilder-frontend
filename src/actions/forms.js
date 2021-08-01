@@ -68,7 +68,6 @@ async (dispatch) => {
     const apiUrl = `/api/v1/p/assetData/${formId}`;
     await axios.post(apiUrl,{answers: formData});
     toast.success("Submitted!");
-    dispatch(getAnswersList());
   } catch (error) {
     toast.error("Something went wrong");
     console.error(error);
