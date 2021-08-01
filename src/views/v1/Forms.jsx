@@ -114,7 +114,7 @@ export default function Forms(props) {
             <Card className="bg-default shadow">
               <CardHeader className="bg-transparent border-0">
                 <h3 className="text-white mb-0">Forms</h3>
-                <h6 className="text-white mb-0">Click on title name for details</h6>
+                <h6 className="text-white mb-0">Click on title name for preview</h6>
               </CardHeader>
               <Table
                 className="align-items-center table-dark table-flush"
