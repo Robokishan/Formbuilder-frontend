@@ -65,6 +65,7 @@
     "react-leaflet": "^2.6.3",
     "react-leaflet-fullscreen": "^1.0.1",
     "react-loader-spinner": "^3.1.14",
+    "react-notification-alert": "0.0.13",
     "react-pass-strength": "^1.0.20",
     "react-redux": "^7.2.4",
     "react-router-dom": "5.1.2",
