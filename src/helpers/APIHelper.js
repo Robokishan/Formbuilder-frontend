@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 // import { toast } from 'react-toastify';
 
 import { getHeaders } from './AuthHelper';
+var CONFIG = require('../configuration/config')
 const parseErrorCode = (error) => {
   
   if (error.response) {
@@ -27,8 +28,8 @@ const API = axios.create();
 // Request parsing interceptor
 API.interceptors.request.use(
   async (config) => {
-    const headers = await getHeaders();
-    config.baseURL = "http://localhost:5000"; //await getBaseUrl();
+    const headers = await getHeaders(); 
+    config.baseURL = CONFIG.REACT_APP_XOXO_URL; //await getBaseUrl();
     if (headers) {
       config.headers = headers;
     }
