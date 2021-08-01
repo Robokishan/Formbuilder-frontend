@@ -24,7 +24,7 @@ export default function Form(props) {
   };
 
   const onFormSubmit = (data) => {
-    console.log("form data", JSON.stringify(data));
+    // console.log("form data", JSON.stringify(data));
   };
 
   let query = useQuery();
@@ -32,6 +32,7 @@ export default function Form(props) {
   const defaultForm = () => {
     return (
       <ReactFormGenerator
+      hide_actions
         onSubmit={(e) => onFormSubmit(e)}
         data={form.form.task_data}
       />
