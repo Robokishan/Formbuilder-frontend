@@ -14,8 +14,7 @@ export const login = async (username, password) => {
     }
     const request = {
         method: 'post',
-        // url: process.env.REACT_APP_LOGIN_URL,
-        url: `${config.REACT_APP_XOXO_URL}${process.env.REACT_APP_XOXO_LOGIN_API_PATH}`,
+        url: `${config.REACT_APP_XOXO_URL}/api/v1/owner/login`,
         data: payload
     }
     const response = await axios(request)
