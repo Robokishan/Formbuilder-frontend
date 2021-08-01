@@ -19,6 +19,8 @@ import { Link, Route, Switch } from "react-router-dom";
 import { deleteForm } from "../../actions/forms";
 import { Button } from "reactstrap";
 import Form from "./Form";
+import moment from "moment";
+import { FORMAT_DATE } from "../../constants/format";
 
 export default function Forms(props) {
   const [linkModal, setlinkModal] = useState(false);
@@ -81,6 +83,14 @@ export default function Forms(props) {
                   Get Link
                 </Button>
               </td>
+              <td> 
+                {form.updated_at
+                  ? moment(form.updated_at).format(FORMAT_DATE)
+                  : "Not available"}
+              </td>
+              <td>
+                {form.responsecount ? form.responsecount : "Not available"}
+              </td>
             </tr>
           </>
         );
@@ -107,6 +117,8 @@ export default function Forms(props) {
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
                     <th scope="col">Action</th>
+                    <th scope="col">Modified</th>
+                    <th scope="col">Responses</th>
                   </tr>
                 </thead>
                 <tbody>{getTableBody()}</tbody>

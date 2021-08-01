@@ -18,7 +18,6 @@ export const login = async (username, password) => {
         data: payload
     }
     const response = await axios(request)
-    console.log("[OWNER LOGIN POST]", response.data);
     return response.data;  
 }
 

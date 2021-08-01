@@ -1,9 +1,11 @@
+/*eslint no-unused-vars: "off"*/
+
 import React, { useEffect, useState } from "react";
 import { getPublicForm } from "../../actions/forms";
 import { ReactFormGenerator } from "react-form-builder2";
 import { addResponse } from "../../actions/forms";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, CardTitle, Card, CardBody } from "reactstrap";
+import { Container, Card, CardBody } from "reactstrap";
 
 export default function PublicForm(props) {
   const [formId, setformId] = useState(props.match.params.formId);

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteAnswer, getAnswersList } from "../../actions/formAnswers";
 import { Button } from "reactstrap";
 import Response from "./Response";
+import moment from "moment";
+import { FORMAT_DATE } from "../../constants/format";
 
 export default function Responses(props) {
   const answers = useSelector((store) => store.answers.answers);
@@ -49,6 +51,11 @@ export default function Responses(props) {
                   Delete
                 </Button>
               </td>
+              <td>
+                {answer.updated_at
+                  ? moment(answer.updated_at).format(FORMAT_DATE)
+                  : "Not available"}
+              </td>
             </tr>
           </>
         );
@@ -74,6 +81,7 @@ export default function Responses(props) {
                   <th scope="col">Title</th>
                   <th scope="col">Description</th>
                   <th scope="col">Action</th>
+                  <th scope="col">Modified</th>
                 </tr>
               </thead>
               <tbody>{getAnswersBody()}</tbody>
