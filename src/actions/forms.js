@@ -101,6 +101,7 @@ export const updateForm =
       const response = await axios.put(apiUrl, form );
       const payload = response.data;
       toast.success("Form Update");
+      dispatch(getFormsList());
     } catch (error) {
       toast.error("Unable to Update form");
       console.error(error);
