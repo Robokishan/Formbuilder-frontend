@@ -77,7 +77,7 @@ export default function Responses(props) {
         <div className="col">
           <Card className="bg-default shadow">
             <CardHeader className="bg-transparent border-0">
-              <h3 className="text-white mb-0">Forms</h3>
+              <h3 className="text-white mb-0">Responses</h3>
               <h6 className="text-white mb-0">Click on title name for details</h6>
             </CardHeader>
             <Table
