@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { doRegister } from "../../actions/auth";
 import { useDispatch } from "react-redux";
 import {
