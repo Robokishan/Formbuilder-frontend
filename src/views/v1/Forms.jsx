@@ -22,6 +22,8 @@ import Form from "./Form";
 import moment from "moment";
 import { FORMAT_DATE } from "../../constants/format";
 
+const tHead = [ "Title", "Description", "Action", "Modified", "Responses"  ];
+
 export default function Forms(props) {
   const [linkModal, setlinkModal] = useState(false);
   const [publicLink, setpublicLink] = useState("");
@@ -30,10 +32,9 @@ export default function Forms(props) {
   const dispatch = useDispatch();
 
   const getTableBody = () => {
-    let totalHeader = 3;
     let tablebody = (
       <tr>
-        <td colSpan={totalHeader} align="center">
+        <td colSpan={tHead.length} align="center">
           Nothing Found
         </td>
       </tr>
@@ -122,11 +123,7 @@ export default function Forms(props) {
               >
                 <thead className="thead-dark">
                   <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Action</th>
-                    <th scope="col">Modified</th>
-                    <th scope="col">Responses</th>
+                    {tHead.map( head => <th scope="col">{head}</th>)}
                   </tr>
                 </thead>
                 <tbody>{getTableBody()}</tbody>
