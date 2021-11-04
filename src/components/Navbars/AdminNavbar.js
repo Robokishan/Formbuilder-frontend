@@ -21,7 +21,7 @@ class AdminNavbar extends React.Component {
 
   render() {
     var owner = getUserDetails();
-    if(owner) var profile_picture  = require("assets/img/brand/default_avatar.png")
+    if(owner) var profile_picture  = require("assets/img/brand/default_avatar.png").default
     var owner_name = getUser().name;
     return (
       <>
