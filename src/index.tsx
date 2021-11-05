@@ -24,12 +24,9 @@ if (process.env.NODE_ENV !== "development")
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      {/* just adding some text editing text after checking */}
+      {/* just editing some text */}
       <Provider store={store}>
         <ToastContainer hideProgressBar={true} />
-
-
-        
         <Protectedroute path="/admin" component={AdminLayout} />
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
         <Route path="/public" render={(props) => <Public {...props} />} />
