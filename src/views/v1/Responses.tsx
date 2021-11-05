@@ -7,9 +7,10 @@ import { Button } from "reactstrap";
 import Response from "./Response";
 import moment from "moment";
 import { FORMAT_DATE } from "../../constants/format";
+import { RootState } from "../../store";
 
 export default function Responses(props) {
-  const answers = useSelector((store) => store.answers.answers);
+  const answers = useSelector((store : RootState) => store.answers.answers);
   const dispatch = useDispatch();
 
   useEffect(() => {

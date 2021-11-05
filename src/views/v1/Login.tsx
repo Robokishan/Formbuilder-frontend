@@ -15,15 +15,20 @@ import {
   Row,
 } from "reactstrap";
 import { fetchDetail, login } from "../../utils/api/owner";
-import {
-  saveUser,
-  saveUserDetails,
-  saveUserId,
-  setToken,
-} from "../../utils/storage/storage";
+import storage from "../../utils/storage/storage";
 import NotificationAlert from "react-notification-alert";
 
-class Login extends React.Component {
+interface State  {
+  email: string;
+  password: string;
+  Loading: boolean
+  error: boolean,
+  showPassword: boolean,
+  signIn: boolean
+}
+
+class Login extends React.Component<{}, State> {
+  notificationref: React.RefObject<any>;
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +39,7 @@ class Login extends React.Component {
       showPassword: false,
       signIn: true,
     };
-    this.notificationref = React.createRef();
+    this.notificationref = React.createRef<any>();
   }
 
   showNotification = (place, color, message) => {
@@ -91,7 +96,7 @@ class Login extends React.Component {
     this.setState({ showPassword: !this.state.showPassword });
   }
   render() {
-    var signInButton = null;
+    var signInButton ;
     if (this.state.signIn == false) {
       signInButton = (
         <Button disabled className="my-4" color="danger" type="submit">
@@ -246,15 +251,18 @@ class Login extends React.Component {
             this.showNotification("tr", 2, response[Object.keys(response)[0]]);
           else this.showNotification("tr", 2, response);
           response.token = response.token.access_token;
-          setToken(response.token);
-          saveUser(response);
-          saveUserId(response.userId);
+          storage.setToken(response.token);
+          storage.saveUser(response);
+          storage.saveUserId(response.userId);
           const owner = await fetchDetail();
-          saveUserDetails(owner);
-          this.props.history.push("/admin/forms");
+          storage.saveUserDetails(owner);
+          (this.props as any).history.push("/admin/forms");
         }
         this.setState({ signIn: true });
-      } catch (e) {
+        console.log("Here reached")
+      } catch (Error) {
+        console.log("Error", Error);
+        let e = Error as any
         this.setState({ signIn: true });
         if (e?.response?.data?.error)
           this.showNotification("tr", 3, e?.response?.data?.error);

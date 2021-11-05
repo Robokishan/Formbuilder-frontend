@@ -21,14 +21,15 @@ import { Button } from "reactstrap";
 import Form from "./Form";
 import moment from "moment";
 import { FORMAT_DATE } from "../../constants/format";
+import { RootState } from "../../store";
 
 const tHead = [ "Title", "Description", "Action", "Modified", "Responses"  ];
 
-export default function Forms(props) {
+export default function FormLists(props) {
   const [linkModal, setlinkModal] = useState(false);
   const [publicLink, setpublicLink] = useState("");
   const [copiedText, setcopiedText] = useState("");
-  const forms = useSelector((store) => store.forms.forms);
+  const formList = useSelector((store:  RootState) => store.forms.forms);
   const dispatch = useDispatch();
 
   const getTableBody = () => {
@@ -39,8 +40,9 @@ export default function Forms(props) {
         </td>
       </tr>
     );
-    if (forms.length > 0) {
-      tablebody = forms.map((form, index) => {
+    if (formList.length > 0) {
+      console.log("Forms from redux=>", formList);
+      tablebody = formList.map((form, index) => {
         return (
           <>
             <tr>

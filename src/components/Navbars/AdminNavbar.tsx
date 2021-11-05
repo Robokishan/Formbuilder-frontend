@@ -10,19 +10,19 @@ import {
   Navbar,
   UncontrolledDropdown
 } from "reactstrap";
-import {eraseAllvalues, getUser, getUserDetails} from '../../utils/storage/storage'
+import storage from '../../utils/storage/storage'
 
-class AdminNavbar extends React.Component {
+class AdminNavbar extends React.Component<any> {
   
   logout(){
-    eraseAllvalues();
-    this.props.history.push('/');
+    storage.eraseAllvalues();
+    (this.props as any).history.push('/');
   }
 
   render() {
-    var owner = getUserDetails();
-    if(owner) var profile_picture  = require("assets/img/brand/default_avatar.png")
-    var owner_name = getUser().name;
+    var owner = storage.getUserDetails();
+    if(owner) var profile_picture  = require("../../assets/img/brand/default_avatar.png")
+    var owner_name = storage.getUser().name;
     return (
       <>
         <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -31,7 +31,7 @@ class AdminNavbar extends React.Component {
               className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
               to="/"
             >
-              {this.props.brandText}
+              {(this.props as any).brandText}
             </Link>
             <Nav className="align-items-center d-none d-md-flex" navbar>
               <UncontrolledDropdown nav>

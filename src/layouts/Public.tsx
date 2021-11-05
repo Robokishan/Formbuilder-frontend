@@ -19,9 +19,9 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Container, Card, CardBody } from "reactstrap";
 
-import routes from "routes.js";
+import routes from "../routes";
 
-export default function Public() {
+export default function Public({} : any) {
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/public") {
@@ -48,3 +48,4 @@ export default function Public() {
     </Container>
   );
 }
+

@@ -5,14 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { ReactFormBuilder, ReactFormGenerator } from "react-form-builder2";
 import { Container, Card, CardBody, FormGroup, Button } from "reactstrap";
 import { UPDATE_EXSITING_FORM } from "../../constants/actions";
+import { RootState } from "../../store";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
 export default function Form(props) {
-  const form = useSelector((state) => state.forms.form);
-  const isFetching = useSelector((state) => state.forms.isFetching);
+  const form = useSelector((state : RootState) => state.forms.form);
+  const isFetching = useSelector((state : RootState) => state.forms.isFetching);
   const dispatch = useDispatch();
 
   useEffect(() => {

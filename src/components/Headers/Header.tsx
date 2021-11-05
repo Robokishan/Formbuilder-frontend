@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getFormsList } from "../../actions/forms";
 import { getAnswersList } from "../../actions/formAnswers";
+import { RootState } from "../../store";
 
 export default function Header(props) {
 
   const dispatch = useDispatch();
-  const formCount = useSelector((store) => store.forms.formCount);
-  const answersCount = useSelector((store) => store.answers.answersCount);
+  const formCount = useSelector((store: RootState) => store.forms.formCount);
+  const answersCount = useSelector((store : RootState) => store.answers.answersCount);
 
   useEffect(() => {
     dispatch(getFormsList());

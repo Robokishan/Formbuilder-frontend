@@ -8,7 +8,8 @@ export const doRegister = (newUser) => async (dispatch) => {
   try {
     const response = await APIHelper.post("/api/v1/owner/register", newUser )
     toast.success(`Account created ${newUser.email} !`);
-  } catch (error) {
+  } catch (e) {
+    let error = e as any;
     toast.error(error.message)
   }
 };

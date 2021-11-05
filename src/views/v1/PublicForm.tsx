@@ -6,11 +6,12 @@ import { ReactFormGenerator } from "react-form-builder2";
 import { addResponse } from "../../actions/forms";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Card, CardBody } from "reactstrap";
+import { RootState } from "../../store";
 
 export default function PublicForm(props) {
   const [formId, setformId] = useState(props.match.params.formId);
-  const form = useSelector((state) => state.forms.form);
-  const isFetching = useSelector((state) => state.forms.isFetching);
+  const form = useSelector((state  : RootState) => state.forms.form);
+  const isFetching = useSelector((state: RootState) => state.forms.isFetching);
   const dispatch = useDispatch();
 
   const onFormSubmit = (formData) => {

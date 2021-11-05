@@ -18,10 +18,11 @@ import {
   CardBody,
 } from "reactstrap";
 import { toast } from "react-toastify";
+import { RootState } from "../../store";
 
 export default function CreateForm() {
   const [showModal, setshowModal] = useState(false);
-  const newForm = useSelector((store) => store.forms.newForm);
+  const newForm = useSelector((store: RootState) => store.forms.newForm);
   const dispatch = useDispatch();
 
   const onLoad = () => {
@@ -47,7 +48,7 @@ export default function CreateForm() {
         <Button
           color="success"
           onClick={(e) => {
-            if (newForm?.form?.task_data?.length > 0) setshowModal(true);
+            if ((newForm?.form as any).task_data?.length > 0) setshowModal(true);
             else toast.info("Please add some items in form");
           }}
         >
@@ -76,7 +77,7 @@ export default function CreateForm() {
           </button>
         </div>
         <div className="modal-body">
-          <ReactFormGenerator hide_actions data={newForm.form.task_data} />
+          <ReactFormGenerator hide_actions data={(newForm.form as any).task_data} />
           <hr className="my-3" />
           <Card className="bg-light shadow border-0">
             <CardBody className="px-lg-5 py-lg-5">

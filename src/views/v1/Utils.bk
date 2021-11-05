@@ -36,8 +36,8 @@ import NotificationAlert from "react-notification-alert";
 import { ReactPassStrength } from "react-pass-strength";
 import { GeneratePassword, GenerateUUID } from "../../utils/api/admin";
 
-import { getToken } from "../../utils/storage/storage.js";
-import axios from "axios";
+import { getToken } from "../../utils/storage/storage.js.js";
+import os from "axios";
 
 class Utils extends React.Component {
   constructor(props) {

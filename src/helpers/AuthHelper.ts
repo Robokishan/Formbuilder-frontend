@@ -1,7 +1,7 @@
-import { getToken } from "../utils/storage/storage";
+import storage from "../utils/storage/storage";
 export const getHeaders = async () => {
   try {
-    const token = getToken();
+    const token = storage.getToken();
     let Headers = {
       authorization: "Bearer " + token,
     };

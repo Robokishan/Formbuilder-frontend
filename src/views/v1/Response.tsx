@@ -3,10 +3,13 @@ import { ReactFormGenerator } from "react-form-builder2";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnswer } from "../../actions/formAnswers";
 import { Card, CardBody } from "reactstrap";
+import { RootState } from "../../store";
 
 export default function Response(props) {
-  const isFetching = useSelector((state) => state.answers.isFetching);
-  const answer = useSelector((state) => state.answers.answer);
+  const isFetching = useSelector(
+    (state: RootState) => state.answers.isFetching
+  );
+  const answer = useSelector((state: RootState) => state.answers.answer);
   const dispatch = useDispatch();
 
   useEffect(() => {

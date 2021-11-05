@@ -16,10 +16,10 @@
 
 */
 import Login from "./views/v1/Login";
-import Forms from "./views/v1/Forms";
+import FormLists from "./views/v1/FormLists";
 import CreateForm from "./views/v1/CreateForm";
 import Responses  from "./views/v1/Responses";
-import PublicForm from "views/v1/PublicForm";
+import PublicForm from "./views/v1/PublicForm";
 
 const routes = [
   {
@@ -27,7 +27,7 @@ const routes = [
     path: "/forms",
     name: "Forms",
     icon: "ni ni-bullet-list-67 text-red",
-    component: Forms,
+    component: FormLists,
     layout: "/admin",
   },
   {

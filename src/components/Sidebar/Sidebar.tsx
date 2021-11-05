@@ -1,9 +1,6 @@
 /*eslint-disable*/
 import React from "react";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
-// nodejs library to set properties for components
-import { PropTypes } from "prop-types";
-// reactstrap components
 import {
   Col,
   Collapse,
@@ -20,24 +17,39 @@ import {
   Row,
   UncontrolledDropdown,
 } from "reactstrap";
-import { eraseAllvalues, getUserDetails } from "../../utils/storage/storage";
+import storage from "../../utils/storage/storage";
 
-class Sidebar extends React.Component {
-  state = {
-    collapseOpen: false,
+interface State {
+  collapseOpen: boolean;
+}
+interface Props {
+  routes: any[];
+  logo?: {
+    imgSrc: string | undefined;
+    imgAlt: string | undefined;
+    innerLink: string;
+    outterLink: string;
   };
+}
+class Sidebar extends React.Component<Props, State> {
   constructor(props) {
     super(props);
+    this.state = {
+      collapseOpen: false,
+    };
     this.activeRoute.bind(this);
   }
+
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
-    return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
+    return (this.props as any).location.pathname.indexOf(routeName) > -1
+      ? "active"
+      : "";
   }
 
   logout() {
-    eraseAllvalues();
-    this.props.history.push("/auth/login");
+    storage.eraseAllvalues();
+    (this.props as any).history.push("/auth/login");
   }
   // toggles collapse between opened and closed (true/false)
   toggleCollapse = () => {
@@ -51,6 +63,7 @@ class Sidebar extends React.Component {
       collapseOpen: false,
     });
   };
+
   // creates the links that appear in the left menu / Sidebar
   createLinks = (routes) => {
     return routes.map((prop, key) => {
@@ -69,26 +82,25 @@ class Sidebar extends React.Component {
       );
     });
   };
+
   render() {
-    const { bgColor, routes, logo } = this.props;
+    const { routes, logo } = this.props;
+    console.error("Logo", logo);
     let navbarBrandProps;
-    if (logo && logo.innerLink) {
+    if (logo && logo?.innerLink) {
       navbarBrandProps = {
         to: logo.innerLink,
         tag: Link,
       };
-    } else if (logo && logo.outterLink) {
+    } else if (logo && logo?.outterLink) {
       navbarBrandProps = {
         href: logo.outterLink,
         target: "_blank",
       };
     }
-    var owner = getUserDetails();
-    if (owner)
-      var profile_picture =
-        owner.avatar != null
-          ? owner.avatar
-          : require("assets/img/brand/default_avatar.png");
+    var owner = storage.getUserDetails();
+    let profile_picture;
+    if (owner) profile_picture = owner.avatar != null ? owner.avatar : null;
     return (
       <Navbar
         className="navbar-vertical fixed-left navbar-light bg-white"
@@ -120,10 +132,7 @@ class Sidebar extends React.Component {
               <DropdownToggle nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={profile_picture}
-                    />
+                    {/* <img alt="..." src={profile_picture} /> */}
                   </span>
                 </Media>
               </DropdownToggle>
@@ -176,26 +185,5 @@ class Sidebar extends React.Component {
     );
   }
 }
-
-Sidebar.defaultProps = {
-  routes: [{}],
-};
-
-Sidebar.propTypes = {
-  // links that will be displayed inside the component
-  routes: PropTypes.arrayOf(PropTypes.object),
-  logo: PropTypes.shape({
-    // innerLink is for links that will direct the user within the app
-    // it will be rendered as <Link to="...">...</Link> tag
-    innerLink: PropTypes.string,
-    // outterLink is for links that will direct the user outside the app
-    // it will be rendered as simple <a href="...">...</a> tag
-    outterLink: PropTypes.string,
-    // the image src of the logo
-    imgSrc: PropTypes.string.isRequired,
-    // the alt for the img
-    imgAlt: PropTypes.string.isRequired,
-  }),
-};
 
 export default Sidebar;

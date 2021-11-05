@@ -21,7 +21,7 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {Col, Container, Row} from "reactstrap";
 // core components
 
-import routes from "routes.js";
+import routes from "../routes";
 
 class Auth extends React.Component {
   componentDidMount() {

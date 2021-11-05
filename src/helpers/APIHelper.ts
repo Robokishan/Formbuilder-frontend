@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 // import { toast } from 'react-toastify';
 
 import { getHeaders } from './AuthHelper';
-var CONFIG = require('../configuration/config')
+import CONFIG from "../configuration/config"
 const parseErrorCode = (error) => {
   
   if (error.response) {
