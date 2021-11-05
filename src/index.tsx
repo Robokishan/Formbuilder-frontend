@@ -27,6 +27,9 @@ ReactDOM.render(
       {/* just adding some text editing text after checking */}
       <Provider store={store}>
         <ToastContainer hideProgressBar={true} />
+
+
+        
         <Protectedroute path="/admin" component={AdminLayout} />
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
         <Route path="/public" render={(props) => <Public {...props} />} />
