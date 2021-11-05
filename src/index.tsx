@@ -24,7 +24,7 @@ if (process.env.NODE_ENV !== "development")
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      {/* just adding some text */}
+      {/* just adding some text editing text after checking */}
       <Provider store={store}>
         <ToastContainer hideProgressBar={true} />
         <Protectedroute path="/admin" component={AdminLayout} />
