@@ -1,10 +1,12 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es2021": true
   },
   "extends": [
     "plugin:react/recommended",
     "airbnb",
+    "airbnb-typescript",
     "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -17,6 +19,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "no-console":"error",
     "no-shadow": "off",
     "import/prefer-default-export": "off",
     "react/prop-types": "off",
