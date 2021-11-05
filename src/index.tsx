@@ -1,5 +1,3 @@
-/*eslint no-unused-vars: "off"*/
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -19,17 +17,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Public from './layouts/Public';
 import Registration from './views/v1/Registration';
 
-if (process.env.NODE_ENV !== 'development')
-  console.log = console.warn = console.error = () => {};
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Provider store={store}>
-        <ToastContainer hideProgressBar={true} />
+        <ToastContainer hideProgressBar />
         <Protectedroute path="/admin" component={AdminLayout} />
-        <Route path="/auth" render={props => <AuthLayout {...props} />} />
-        <Route path="/public" render={props => <Public {...props} />} />
-        <Route path="/" exact render={props => <Registration {...props} />} />
+        <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+        <Route path="/public" render={(props) => <Public {...props} />} />
+        <Route path="/" exact render={(props) => <Registration {...props} />} />
         {/* <Redirect exact path="/"  to="/admin/forms" /> */}
       </Provider>
     </Switch>
