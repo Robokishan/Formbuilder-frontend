@@ -1,12 +1,16 @@
-import storage from "../utils/storage/storage";
+/* eslint-disable consistent-return */
+import storage from '../utils/storage/storage';
+
 export const getHeaders = async () => {
   try {
     const token = storage.getToken();
-    let Headers = {
-      authorization: "Bearer " + token,
+    const Headers = {
+      authorization: `Bearer ${token}`,
     };
     return Headers;
-  } catch (error) {}
+  } catch (error) {
+    // console.error("[AUTH_HELPER]",error);
+  }
 };
 
 // export const getPubSubToken = async () => {

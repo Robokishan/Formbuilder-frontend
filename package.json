@@ -42,7 +42,8 @@
     "map-sass": "node-sass src/assets/scss/argon-dashboard-react.scss src/assets/css/argon-dashboard-react.css --source-map true",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+    "gen": "graphql-codegen --config codegen.yml"
   },
   "browserslist": [
     ">0.2%",
@@ -56,6 +57,7 @@
     "axios": ">=0.21.1",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
+    "graphql": "^16.0.1",
     "here-maps-react": "^1.1.0",
     "jquery": "^3.6.0",
     "leaflet": "^1.6.0",
@@ -84,11 +86,16 @@
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
     "rellax": "^1.12.1",
-    "sha1": "^1.1.1"
+    "sha1": "^1.1.1",
+    "urql": "^2.0.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
+    "@graphql-codegen/cli": "2.2.2",
+    "@graphql-codegen/typescript": "2.3.1",
+    "@graphql-codegen/typescript-operations": "2.2.0",
+    "@graphql-codegen/typescript-urql": "^3.4.0",
     "@types/googlemaps": "3.39.2",
     "@types/jest": "^27.0.2",
     "@types/markerclustererplus": "2.1.33",

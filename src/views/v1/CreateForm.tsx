@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from 'react';
 // reactstrap components
-import { Container } from "reactstrap";
-import { ReactFormBuilder, ReactFormGenerator } from "react-form-builder2";
-import { useDispatch, useSelector } from "react-redux";
-import { UPDATE_NEW_FORM } from "../../constants/actions";
-import { addNewForm } from "../../actions/forms";
+import { ReactFormBuilder, ReactFormGenerator } from 'react-form-builder2';
+import { useDispatch, useSelector } from 'react-redux';
 import {
+  Container,
   Button,
   InputGroup,
   Modal,
@@ -16,22 +16,22 @@ import {
   Label,
   Card,
   CardBody,
-} from "reactstrap";
-import { toast } from "react-toastify";
-import { RootState } from "../../store";
+} from 'reactstrap';
+import { toast } from 'react-toastify';
+import { UPDATE_NEW_FORM } from '../../constants/actions';
+import { addNewForm } from '../../actions/forms';
+import { RootState } from '../../store';
 
 export default function CreateForm() {
   const [showModal, setshowModal] = useState(false);
   const newForm = useSelector((store: RootState) => store.forms.newForm);
   const dispatch = useDispatch();
 
-  const onLoad = () => {
-    return new Promise(function (resolve, reject) {
-      resolve(newForm?.form ? newForm?.form : []);
-    });
-  };
+  const onLoad = () => new Promise((resolve, _) => {
+    resolve(newForm?.form ? newForm?.form : []);
+  });
   const onChange = (data) => {
-    dispatch({ type: UPDATE_NEW_FORM, key: "form", payload: data });
+    dispatch({ type: UPDATE_NEW_FORM, key: 'form', payload: data });
   };
 
   const onFormDetailChange = (event) => {
@@ -49,7 +49,7 @@ export default function CreateForm() {
           color="success"
           onClick={(e) => {
             if ((newForm?.form as any).task_data?.length > 0) setshowModal(true);
-            else toast.info("Please add some items in form");
+            else toast.info('Please add some items in form');
           }}
         >
           Create Form
@@ -73,7 +73,7 @@ export default function CreateForm() {
             type="button"
             onClick={() => setshowModal(!showModal)}
           >
-            <span aria-hidden={true}>×</span>
+            <span aria-hidden>×</span>
           </button>
         </div>
         <div className="modal-body">

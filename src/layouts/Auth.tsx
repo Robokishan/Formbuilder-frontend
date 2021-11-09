@@ -1,50 +1,36 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React from "react";
-import {Redirect, Route, Switch} from "react-router-dom";
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable @typescript-eslint/no-shadow */
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 // reactstrap components
-import {Col, Container, Row} from "reactstrap";
+import { Col, Container, Row } from 'reactstrap';
 // core components
 
-import routes from "../routes";
+import routes from '../routes';
 
 class Auth extends React.Component {
   componentDidMount() {
-    document.body.classList.add("bg-danger");
+    document.body.classList.add('bg-danger');
   }
+
   componentWillUnmount() {
-    document.body.classList.remove("bg-danger");
+    document.body.classList.remove('bg-danger');
   }
-  getRoutes = routes => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/auth") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
+
+  getRoutes = (routes) => routes.map((prop, key) => {
+    if (prop.layout === '/auth') {
+      return (
+        <Route
+          path={prop.layout + prop.path}
+          component={prop.component}
+          key={key}
+        />
+      );
+    }
+    return null;
+  });
+
   render() {
     return (
       <>

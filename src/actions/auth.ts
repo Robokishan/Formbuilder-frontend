@@ -1,15 +1,15 @@
-/*eslint no-unused-vars: "off"*/
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import APIHelper from "../helpers/APIHelper";
+import { toast } from 'react-toastify';
+import APIHelper from '../helpers/APIHelper';
 
-import { toast } from "react-toastify";
-
-export const doRegister = (newUser) => async (dispatch) => {
+export const doRegister = (newUser) => async (_dispatch) => {
   try {
-    const response = await APIHelper.post("/api/v1/owner/register", newUser )
+    await APIHelper.post('/api/v1/owner/register', newUser);
     toast.success(`Account created ${newUser.email} !`);
-  } catch (e) {
-    let error = e as any;
-    toast.error(error.message)
+  } catch (e : any) {
+    const error = e;
+    toast.error(error.message);
   }
 };

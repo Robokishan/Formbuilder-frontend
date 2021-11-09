@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import { doRegister } from "../../actions/auth";
-import { useDispatch } from "react-redux";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable @typescript-eslint/no-shadow */
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Button,
   Card,
@@ -15,11 +17,12 @@ import {
   Row,
   Col,
   Container,
-} from "reactstrap";
-import Label from "reactstrap/lib/Label";
+} from 'reactstrap';
+import Label from 'reactstrap/lib/Label';
+import { doRegister } from '../../actions/auth';
 
 export default function Registration(props) {
-  const [passwordType, setpasswordType] = useState("password");
+  const [passwordType, setpasswordType] = useState('password');
   const [disable, setdisable] = useState(false);
 
   const [user, setform] = useState({});
@@ -27,12 +30,12 @@ export default function Registration(props) {
   const dispatch = useDispatch();
 
   const changePasswordFieldType = (e) => {
-    if (passwordType === "password") setpasswordType("text");
-    else setpasswordType("password");
+    if (passwordType === 'password') setpasswordType('text');
+    else setpasswordType('password');
   };
 
   const onChange = (event) => {
-    let { name, value } = event.target;
+    const { name, value } = event.target;
     setform((user) => ({ ...user, [name]: value }));
   };
 
@@ -157,7 +160,7 @@ export default function Registration(props) {
                     </div>
                     <div>
                       <Button
-                        onClick={(e) => props.history.push("/auth/login")}
+                        onClick={(e) => props.history.push('/auth/login')}
                         className="mt-4"
                         color="primary"
                         type="button"

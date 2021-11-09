@@ -1,7 +1,7 @@
 import {
   LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_ERROR
+  LOGIN_ERROR,
 } from '../constants/actions';
 
 export const initialState = {

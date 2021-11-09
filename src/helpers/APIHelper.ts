@@ -1,11 +1,12 @@
-import axios from 'axios';
+/* eslint-disable no-console */
+import axios, { AxiosRequestConfig } from 'axios';
 import { toast } from 'react-toastify';
 // import { toast } from 'react-toastify';
 
 import { getHeaders } from './AuthHelper';
-import CONFIG from "../configuration/config"
+import CONFIG from '../configuration/config';
+
 const parseErrorCode = (error) => {
-  
   if (error.response) {
     if (error.response.status === 401) {
       // store.dispatch(onLogOut());
@@ -14,7 +15,7 @@ const parseErrorCode = (error) => {
       // const { message } = error.response.data;
       // showToast({ message });
     } else {
-      toast.error("Something went wrong !");
+      toast.error('Something went wrong !');
     }
   } else {
     // showToast({ message: I18n.t('ERRORS.COMMON_ERROR') });
@@ -27,13 +28,18 @@ const API = axios.create();
 
 // Request parsing interceptor
 API.interceptors.request.use(
-  async (config) => {
-    const headers = await getHeaders(); 
-    config.baseURL = CONFIG.REACT_APP_XOXO_URL; //await getBaseUrl();
+  async (config:AxiosRequestConfig) => {
+    const headers = await getHeaders();
+    let newConfig = {
+      ...config,
+      baseURL: CONFIG.REACT_APP_XOXO_URL,
+      withCredentials: true,
+    };
+    // await getBaseUrl();}
     if (headers) {
-      config.headers = headers;
+      newConfig = { ...newConfig, headers };
     }
-    return config;
+    return newConfig;
   },
   (error) => Promise.reject(error),
 );

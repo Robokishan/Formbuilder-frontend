@@ -1,5 +1,6 @@
-import React from "react";
-import {Link} from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Container,
   DropdownItem,
@@ -8,21 +9,22 @@ import {
   Media,
   Nav,
   Navbar,
-  UncontrolledDropdown
-} from "reactstrap";
-import storage from '../../utils/storage/storage'
+  UncontrolledDropdown,
+} from 'reactstrap';
+import storage from '../../utils/storage/storage';
 
 class AdminNavbar extends React.Component<any> {
-  
-  logout(){
+  logout() {
     storage.eraseAllvalues();
     (this.props as any).history.push('/');
   }
 
   render() {
-    var owner = storage.getUserDetails();
-    if(owner) var profile_picture  = require("../../assets/img/brand/default_avatar.png")
-    var owner_name = storage.getUser().name;
+    const owner = storage.getUserDetails();
+    let profilePicture;
+    // eslint-disable-next-line global-require
+    if (owner) profilePicture = require('../../assets/img/brand/default_avatar.png');
+    const ownerName = storage.getUser().name;
     return (
       <>
         <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -40,12 +42,12 @@ class AdminNavbar extends React.Component<any> {
                     <span className="avatar avatar-sm rounded-circle">
                       <img
                         alt="..."
-                        src={profile_picture}
+                        src={profilePicture}
                       />
                     </span>
                     <Media className="ml-2 d-none d-lg-block">
                       <span className="mb-0 text-sm font-weight-bold">
-                        {owner_name}
+                        {ownerName}
                       </span>
                     </Media>
                   </Media>

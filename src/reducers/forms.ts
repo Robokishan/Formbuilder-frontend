@@ -3,15 +3,15 @@ import {
   GET_FORM,
   UPDATE_NEW_FORM,
   FETCHING_FORMS,
-  UPDATE_EXSITING_FORM
-} from "../constants/actions";
+  UPDATE_EXSITING_FORM,
+} from '../constants/actions';
 
 const initialState = {
   isFetching: false,
   forms: {},
-  form: { title: "", description: "", form: [] },
+  form: { title: '', description: '', form: [] },
   formCount: 0,
-  newForm: { title: "", description: "", form: [] }
+  newForm: { title: '', description: '', form: [] },
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         forms: action.payload,
-        formCount: action.payload.length
+        formCount: action.payload.length,
       };
     }
     case GET_FORM:
@@ -32,19 +32,19 @@ export default (state = initialState, action) => {
     case UPDATE_NEW_FORM:
       return {
         ...state,
-        newForm: {...state.newForm,[action.key]: action.payload}
-      }
-    case FETCHING_FORMS: 
+        newForm: { ...state.newForm, [action.key]: action.payload },
+      };
+    case FETCHING_FORMS:
       return {
         ...state,
-        isFetching: true
-      }
+        isFetching: true,
+      };
     case UPDATE_EXSITING_FORM:
       return {
         ...state,
-        form: {...state.form,[action.key]: action.payload}
-      }
-      
+        form: { ...state.form, [action.key]: action.payload },
+      };
+
     default:
       return state;
   }

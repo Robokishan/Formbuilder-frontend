@@ -1,5 +1,13 @@
-/*eslint eqeqeq: "off"*/
-import React from "react";
+/* eslint-disable curly */
+/* eslint-disable nonblock-statement-body-position */
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint eqeqeq: "off" */
+import React, { ReactElement, useRef, useState } from 'react';
+
 // reactstrap components
 import {
   Button,
@@ -13,12 +21,16 @@ import {
   InputGroupAddon,
   InputGroupText,
   Row,
-} from "reactstrap";
-import { fetchDetail, login } from "../../utils/api/owner";
-import storage from "../../utils/storage/storage";
-import NotificationAlert from "react-notification-alert";
+} from 'reactstrap';
 
-interface State  {
+import NotificationAlert from 'react-notification-alert';
+import { useMutation } from 'urql';
+import { useHistory } from 'react-router-dom';
+import { fetchDetail, login } from '../../utils/api/owner';
+import storage from '../../utils/storage/storage';
+import { useLoginMutation } from '../../generated/graphql';
+
+interface State {
   email: string;
   password: string;
   Loading: boolean
@@ -27,99 +39,142 @@ interface State  {
   signIn: boolean
 }
 
-class Login extends React.Component<{}, State> {
-  notificationref: React.RefObject<any>;
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      Loading: false,
-      error: false,
-      showPassword: false,
-      signIn: true,
-    };
-    this.notificationref = React.createRef<any>();
-  }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Props {
 
-  showNotification = (place, color, message) => {
+}
+
+export default function Login(_state: State, props:Props): ReactElement {
+  const notificationref = useRef<any>();
+  const [email, setemail] = useState<string>('');
+  const [password, setpassword] = useState<string>('');
+  const [Loading, setLoading] = useState<boolean>(false);
+  const [error, seterror] = useState<boolean>(false);
+  const [showPassword, setshowPassword] = useState<boolean>(false);
+  const [signIn, setsignIn] = useState<any>(true);
+  const history = useHistory();
+  const [,loginMut] = useLoginMutation();
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const showNotification = (place: string, color: number, message: {} | null | undefined) => {
     // var color = Math.floor(Math.random() * 5 + 1);
-    var type;
-    var discription;
+    let type: string | undefined;
+    let discription: any;
     switch (color) {
       case 1:
-        type = "primary";
+        type = 'primary';
         break;
       case 2:
-        type = "success";
+        type = 'success';
         discription = (
           <div>
-            <strong>Logged In!</strong> {message}
+            <strong>Logged In!</strong>
+            {' '}
+            {message}
           </div>
         );
         break;
       case 3:
-        type = "danger";
+        type = 'danger';
         discription = (
           <div>
-            <strong>Error !</strong> {message}
+            <strong>Error !</strong>
+            {' '}
+            {message}
           </div>
         );
         break;
       case 4:
-        type = "warning";
+        type = 'warning';
         break;
       case 5:
-        type = "info";
+        type = 'info';
         break;
       default:
         break;
     }
-    var options = {};
+    let options = {};
     options = {
-      place: place,
+      place,
       message: <div>{discription}</div>,
-      type: type,
-      icon: "tim-icons icon-bell-55",
+      type,
+      icon: 'tim-icons icon-bell-55',
       autoDismiss: 7,
     };
-    this.notificationref.current.notificationAlert(options);
+    notificationref.current.notificationAlert(options);
   };
 
-  handleNameChange(event) {
-    this.setState({ email: event.target.value });
+  function handleNameChange(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setemail(event.target.value);
   }
-  handlePasswordChange(event) {
-    this.setState({ password: event.target.value });
+
+  function handlePasswordChange(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setpassword(event.target.value);
   }
-  changePasswordFieldType(event) {
-    this.setState({ showPassword: !this.state.showPassword });
+
+  function changePasswordFieldType(event: any) {
+    setshowPassword(!showPassword);
   }
-  render() {
-    var signInButton ;
-    if (this.state.signIn == false) {
-      signInButton = (
-        <Button disabled className="my-4" color="danger" type="submit">
-          Sign in
-        </Button>
-      );
+
+  const onSubmit = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+    if (email === '') {
+      seterror(true);
+    } else if (password === '') {
+      seterror(true);
     } else {
-      signInButton = (
-        <Button className="my-4" color="danger" type="submit">
-          Sign in
-        </Button>
-      );
+      setsignIn(false);
+      setLoading(true);
+      seterror(false);
+
+      try {
+        const response = await loginMut({ email, password });
+        if (response.data?.login.errors == null) {
+          if (response.data?.login.user != null) {
+            console.log(response.data?.login?.user[Object.keys(response.data.login.user)[0]]);
+            showNotification('tr', 2, response.data?.login.user[Object.keys(response.data?.login.user)[0]]);
+          }
+        }
+
+        // const response = await login(username, password);
+        // if (response.token !== null && response.token !== '') {
+        //   if (response?.message) {
+        //     showNotification('tr', 2, response.message);
+        //   } else if (Object.keys(response).length > 0) { showNotification('tr', 2, response[Object.keys(response)[0]]); } else showNotification('tr', 2, response);
+        //   response.token = response.token.access_token;
+        storage.setToken(response.data?.login.user?.token.access_token);
+        //   storage.saveUser(response);
+        //   storage.saveUserId(response.userId);
+
+        //   storage.saveUserDetails(owner);
+
+        // }
+        setsignIn(true);
+        history.push('/admin/forms');
+      } catch (Error) {
+        console.log('Error', Error);
+        const e = Error as any;
+        setsignIn(true);
+
+        if (e?.response?.data?.error) { showNotification('tr', 3, e?.response?.data?.error); } else if (e.response && Object.keys(e?.response?.data).length > 0) {
+          showNotification(
+            'tr',
+            3,
+            e.response.data[Object.keys(e.response.data)[0]],
+          );
+        } else showNotification('tr', 3, e.toString());
+      }
     }
-    var passwordFieldType =
-      this.state.showPassword == false ? "password" : "text";
-    return (
-      <>
-        <Col lg="5" md="7">
-          <Card className="bg-secondary shadow border-0">
-            <div className="react-notification-alert-container">
-              <NotificationAlert ref={this.notificationref} />
-            </div>
-            {/* <CardHeader className="bg-transparent pb-5">
+  };
+
+  return (
+    <>
+      <Col lg="5" md="7">
+        <Card className="bg-secondary shadow border-0">
+          <div className="react-notification-alert-container">
+            <NotificationAlert ref={notificationref} />
+          </div>
+          {/* <CardHeader className="bg-transparent pb-5">
               <div className="text-muted text-center mt-2 mb-3">
                 <small>Sign in with</small>
               </div>
@@ -154,61 +209,65 @@ class Login extends React.Component<{}, State> {
                 </Button>
               </div>
             </CardHeader> */}
-            <CardBody className="px-lg-5 py-lg-5">
-              {/* <div className="text-center text-muted mb-4">
+          <CardBody className="px-lg-5 py-lg-5">
+            {/* <div className="text-center text-muted mb-4">
                 <small>Or sign in with credentials</small>
               </div> */}
-              <Form role="form" onSubmit={this.onSubmit}>
-                <FormGroup className="mb-3">
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-email-83" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Email"
-                      type="email"
-                      autoComplete="email"
-                      onChange={this.handleNameChange.bind(this)}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                <FormGroup>
-                  <InputGroup className="input-group-alternative">
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Password"
-                      type={passwordFieldType}
-                      autoComplete="password"
-                      onChange={this.handlePasswordChange.bind(this)}
-                    />
-                  </InputGroup>
-                </FormGroup>
-                <div className="custom-control custom-control-alternative custom-checkbox">
-                  <input
-                    className="custom-control-input"
-                    id=" customCheckLogin"
-                    type="checkbox"
-                    onChange={this.changePasswordFieldType.bind(this)}
+            <Form role="form" onSubmit={onSubmit}>
+              <FormGroup className="mb-3">
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-email-83" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    placeholder="Email"
+                    type="email"
+                    autoComplete="email"
+                    onChange={(e) => handleNameChange(e)}
                   />
-                  <label
-                    className="custom-control-label"
-                    htmlFor=" customCheckLogin"
-                  >
-                    <span className="text-muted">Show Password</span>
-                  </label>
-                </div>
-                <div className="text-center">{signInButton}</div>
-              </Form>
-            </CardBody>
-          </Card>
-          <Row className="mt-3">
-            {/* <Col xs="6">
+                </InputGroup>
+              </FormGroup>
+              <FormGroup>
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-lock-circle-open" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    placeholder="Password"
+                    type={showPassword == false ? 'password' : 'text'}
+                    autoComplete="password"
+                    onChange={(e) => handlePasswordChange(e)}
+                  />
+                </InputGroup>
+              </FormGroup>
+              <div className="custom-control custom-control-alternative custom-checkbox">
+                <input
+                  className="custom-control-input"
+                  id=" customCheckLogin"
+                  type="checkbox"
+                  onChange={changePasswordFieldType}
+                />
+                <label
+                  className="custom-control-label"
+                  htmlFor=" customCheckLogin"
+                >
+                  <span className="text-muted">Show Password</span>
+                </label>
+              </div>
+              <div className="text-center">
+                <Button disabled={!signIn} className="my-4" color="danger" type="submit">
+                  Sign in
+                </Button>
+              </div>
+            </Form>
+          </CardBody>
+        </Card>
+        <Row className="mt-3">
+          {/* <Col xs="6">
               <a
                 className="text-light"
                 href="#pablo"
@@ -217,7 +276,7 @@ class Login extends React.Component<{}, State> {
                 <small>Forgot password?</small>
               </a>
             </Col> */}
-            {/* <Col className="text-right" xs="6">
+          {/* <Col className="text-right" xs="6">
               <a
                 className="text-light"
                 href="#pablo"
@@ -226,56 +285,8 @@ class Login extends React.Component<{}, State> {
                 <small>Create new account</small>
               </a>
             </Col> */}
-          </Row>
-        </Col>
-      </>
-    );
-  }
-
-  onSubmit = async (e) => {
-    e.preventDefault();
-    if (this.state.email === "") {
-      this.setState({ error: true });
-    } else if (this.state.password === "") {
-      this.setState({ error: true });
-    } else {
-      this.setState({ signIn: false, Loading: true, error: false });
-      let username = this.state.email;
-      let password = this.state.password;
-      try {
-        const response = await login(username, password);
-        if (response.token !== null && response.token !== "") {
-          if (response?.message) {
-            this.showNotification("tr", 2, response.message);
-          } else if (Object.keys(response).length > 0)
-            this.showNotification("tr", 2, response[Object.keys(response)[0]]);
-          else this.showNotification("tr", 2, response);
-          response.token = response.token.access_token;
-          storage.setToken(response.token);
-          storage.saveUser(response);
-          storage.saveUserId(response.userId);
-          const owner = await fetchDetail();
-          storage.saveUserDetails(owner);
-          (this.props as any).history.push("/admin/forms");
-        }
-        this.setState({ signIn: true });
-        console.log("Here reached")
-      } catch (Error) {
-        console.log("Error", Error);
-        let e = Error as any
-        this.setState({ signIn: true });
-        if (e?.response?.data?.error)
-          this.showNotification("tr", 3, e?.response?.data?.error);
-        else if (e.response && Object.keys(e?.response?.data).length > 0) {
-          this.showNotification(
-            "tr",
-            3,
-            e.response.data[Object.keys(e.response.data)[0]]
-          );
-        } else this.showNotification("tr", 3, e.toString());
-      }
-    }
-  };
+        </Row>
+      </Col>
+    </>
+  );
 }
-
-export default Login;

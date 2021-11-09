@@ -1,1 +1,1 @@
-export const FORMAT_DATE = "YYYY-MM-DD hh:mm A";
+export const FORMAT_DATE = 'YYYY-MM-DD hh:mm A';

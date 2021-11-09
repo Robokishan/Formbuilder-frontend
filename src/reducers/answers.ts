@@ -1,21 +1,21 @@
 import {
   FETCHING_RESPONSE,
   FETCH_RESPONSES,
-  FETCH_RESPONSE
-} from "../constants/actions";
+  FETCH_RESPONSE,
+} from '../constants/actions';
 
 const initialState = {
   isFetching: false,
   answers: {},
   answer: {},
-  answersCount: 0
+  answersCount: 0,
 };
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCHING_RESPONSE: {
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     }
     case FETCH_RESPONSES: {
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         answers: action.payload,
-        answersCount: action.payload.length
+        answersCount: action.payload.length,
       };
     }
     case FETCH_RESPONSE:

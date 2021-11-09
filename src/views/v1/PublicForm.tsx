@@ -1,31 +1,28 @@
-/*eslint no-unused-vars: "off"*/
-
-import React, { useEffect, useState } from "react";
-import { getPublicForm } from "../../actions/forms";
-import { ReactFormGenerator } from "react-form-builder2";
-import { addResponse } from "../../actions/forms";
-import { useDispatch, useSelector } from "react-redux";
-import { Container, Card, CardBody } from "reactstrap";
-import { RootState } from "../../store";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/destructuring-assignment */
+import React, { useEffect, useState } from 'react';
+import { ReactFormGenerator } from 'react-form-builder2';
+import { useDispatch, useSelector } from 'react-redux';
+import { Container, Card, CardBody } from 'reactstrap';
+import { addResponse, getPublicForm } from '../../actions/forms';
+import { RootState } from '../../store';
 
 export default function PublicForm(props) {
   const [formId, setformId] = useState(props.match.params.formId);
-  const form = useSelector((state  : RootState) => state.forms.form);
+  const form = useSelector((state : RootState) => state.forms.form);
   const isFetching = useSelector((state: RootState) => state.forms.isFetching);
   const dispatch = useDispatch();
 
   const onFormSubmit = (formData) => {
-    console.log("form data", JSON.stringify(formData));
     dispatch(addResponse({ formId, formData }));
   };
 
   useEffect(() => {
     dispatch(getPublicForm(formId));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const defaultForm = () => {
-    let formQuestions =
-      form?.form?.task_data?.length > 0 ? form?.form?.task_data : [];
+    const formQuestions = form?.form?.task_data?.length > 0 ? form?.form?.task_data : [];
     if (formQuestions.length > 0) {
       return (
         <ReactFormGenerator
@@ -33,9 +30,8 @@ export default function PublicForm(props) {
           data={formQuestions}
         />
       );
-    } else {
-      return <h1> No Form Questions Found </h1>;
     }
+    return <h1> No Form Questions Found </h1>;
   };
 
   return (
