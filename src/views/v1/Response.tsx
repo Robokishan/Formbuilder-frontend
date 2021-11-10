@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import { ReactFormGenerator } from 'react-form-builder2';
