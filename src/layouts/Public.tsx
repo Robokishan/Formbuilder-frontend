@@ -1,6 +1,5 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable no-empty-pattern */
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -9,7 +8,7 @@ import { Container, Card, CardBody } from 'reactstrap';
 import routes from '../routes';
 
 export default function Public({} : any) {
-  const getRoutes = (routes) => routes.map((prop, key) => {
+  const getRoutes = (routeList) => routeList.map((prop, key) => {
     if (prop.layout === '/public') {
       return (
         <Route

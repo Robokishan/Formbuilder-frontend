@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable @typescript-eslint/no-shadow */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -36,7 +35,7 @@ export default function Registration(props) {
 
   const onChange = (event) => {
     const { name, value } = event.target;
-    setform((user) => ({ ...user, [name]: value }));
+    setform((u) => ({ ...u, [name]: value }));
   };
 
   const onFormSubmit = (e) => {

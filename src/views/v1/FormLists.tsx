@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-underscore-dangle */
@@ -193,7 +192,7 @@ export default function FormLists(props) {
         <Route
           exact
           path={`${props.match.path}/:assetId`}
-          render={(props) => <Form formId={props.match.params.assetId} />}
+          render={(_props) => <Form formId={_props.match.params.assetId} />}
         />
       </Switch>
     </>
