@@ -4,20 +4,32 @@ import React, { useEffect } from 'react';
 import {
   Card, CardBody, CardTitle, Col, Container, Row,
 } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { getFormsList } from '../../actions/forms';
-import { getAnswersList } from '../../actions/formAnswers';
 import { RootState } from '../../store';
+import { useFormListQuery } from '../../generated/graphql';
 
 export default function Header() {
-  const dispatch = useDispatch();
   const formCount = useSelector((store: RootState) => store.forms.formCount);
   const answersCount = useSelector((store : RootState) => store.answers.answersCount);
+  const [{ data, fetching }] = useFormListQuery();
+
+  if (fetching) {
+    //
+  } else if (!data?.forms) {
+    //
+  } else {
+    // console.log('data', data.forms);
+  }
+  // const fetchData = async () => {
+  //   const response = await getForms();
+  //   console.log('Response', response);
+  // };
 
   useEffect(() => {
-    dispatch(getFormsList());
-    dispatch(getAnswersList());
+    // fetchData();
+    // dispatch(getFormsList());
+    // dispatch(getAnswersList());
   }, []);
 
   return (

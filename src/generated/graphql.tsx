@@ -112,6 +112,11 @@ export type Formanswers = {
   updated_at: Scalars['String'];
 };
 
+export type FormListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FormListQuery = { __typename?: 'Query', forms: Array<{ __typename?: 'Forms', id: string, title: string, description: string, updated_at: string }> };
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -121,6 +126,20 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null | undefined, user?: { __typename?: 'UserAuth', name: string, token: { __typename?: 'Token', access_token: string } } | null | undefined } };
 
 
+export const FormListDocument = gql`
+    query formList {
+  forms {
+    id
+    title
+    description
+    updated_at
+  }
+}
+    `;
+
+export function useFormListQuery(options: Omit<Urql.UseQueryArgs<FormListQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<FormListQuery>({ query: FormListDocument, ...options });
+};
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(options: {email: $email, password: $password}) {

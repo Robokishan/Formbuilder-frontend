@@ -2,7 +2,6 @@
 
 import { toast } from 'react-toastify';
 import {
-  GET_FORMS,
   GET_FORM,
   DELETE_FORM,
   FETCHING_FORMS,
@@ -14,11 +13,15 @@ import axios from '../helpers/APIHelper';
 export const getFormsList = () => async (dispatch) => {
   dispatch({ type: FETCHING_FORMS });
   try {
-    const response = await axios.get('/api/v1/asset');
-    dispatch({
-      type: GET_FORMS,
-      payload: response.data,
-    });
+    // const response = await axios.get('/api/v1/asset');
+    // const [, getForms] = useFormListQuery();
+    // const response = await getForms();
+    // console.log(response);
+
+    // dispatch({
+    //   type: GET_FORMS,
+    //   payload: response.data,
+    // });
   } catch (error) {
     // console.error(error);
   }

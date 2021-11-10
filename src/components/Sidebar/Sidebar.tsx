@@ -1,6 +1,9 @@
-/*eslint-disable*/
-import React from "react";
-import { Link, NavLink as NavLinkRRD } from "react-router-dom";
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react';
+import { Link, NavLink as NavLinkRRD } from 'react-router-dom';
 import {
   Col,
   Collapse,
@@ -16,8 +19,8 @@ import {
   NavLink,
   Row,
   UncontrolledDropdown,
-} from "reactstrap";
-import storage from "../../utils/storage/storage";
+} from 'reactstrap';
+import storage from '../../utils/storage/storage';
 
 interface State {
   collapseOpen: boolean;
@@ -43,49 +46,43 @@ class Sidebar extends React.Component<Props, State> {
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
     return (this.props as any).location.pathname.indexOf(routeName) > -1
-      ? "active"
-      : "";
+      ? 'active'
+      : '';
   }
 
   logout() {
     storage.eraseAllvalues();
-    (this.props as any).history.push("/auth/login");
+    (this.props as any).history.push('/auth/login');
   }
+
   // toggles collapse between opened and closed (true/false)
   toggleCollapse = () => {
-    this.setState({
-      collapseOpen: !this.state.collapseOpen,
-    });
+    this.setState((state) => ({ collapseOpen: !state.collapseOpen }));
   };
+
   // closes the collapse
   closeCollapse = () => {
-    this.setState({
-      collapseOpen: false,
-    });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    this.setState((state) => ({ collapseOpen: false }));
   };
 
   // creates the links that appear in the left menu / Sidebar
-  createLinks = (routes) => {
-    return routes.map((prop, key) => {
-      return (
-        <NavItem key={key}>
-          <NavLink
-            to={prop.layout + prop.path}
-            tag={NavLinkRRD}
-            onClick={this.closeCollapse}
-            activeClassName="active"
-          >
-            <i className={prop.icon} />
-            {prop.name}
-          </NavLink>
-        </NavItem>
-      );
-    });
-  };
+  createLinks = (routes) => routes.map((prop, key) => (
+    <NavItem key={key}>
+      <NavLink
+        to={prop.layout + prop.path}
+        tag={NavLinkRRD}
+        onClick={this.closeCollapse}
+        activeClassName="active"
+      >
+        <i className={prop.icon} />
+        {prop.name}
+      </NavLink>
+    </NavItem>
+  ));
 
   render() {
     const { routes, logo } = this.props;
-    console.error("Logo", logo);
     let navbarBrandProps;
     if (logo && logo?.innerLink) {
       navbarBrandProps = {
@@ -95,12 +92,9 @@ class Sidebar extends React.Component<Props, State> {
     } else if (logo && logo?.outterLink) {
       navbarBrandProps = {
         href: logo.outterLink,
-        target: "_blank",
+        target: '_blank',
       };
     }
-    var owner = storage.getUserDetails();
-    let profile_picture;
-    if (owner) profile_picture = owner.avatar != null ? owner.avatar : null;
     return (
       <Navbar
         className="navbar-vertical fixed-left navbar-light bg-white"

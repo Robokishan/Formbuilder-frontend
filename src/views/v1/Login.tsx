@@ -24,9 +24,7 @@ import {
 } from 'reactstrap';
 
 import NotificationAlert from 'react-notification-alert';
-import { useMutation } from 'urql';
 import { useHistory } from 'react-router-dom';
-import { fetchDetail, login } from '../../utils/api/owner';
 import storage from '../../utils/storage/storage';
 import { useLoginMutation } from '../../generated/graphql';
 
@@ -149,7 +147,6 @@ export default function Login(_state: State, props:Props): ReactElement {
         //   storage.saveUserDetails(owner);
 
         // }
-        setsignIn(true);
         history.push('/admin/forms');
       } catch (Error) {
         console.log('Error', Error);

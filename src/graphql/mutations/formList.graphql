@@ -1,0 +1,8 @@
+query formList {
+    forms {
+        id
+        title
+        description
+        updated_at
+    }
+}
