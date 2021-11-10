@@ -1,6 +1,5 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable class-methods-use-this */
-/* eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 // reactstrap components
@@ -18,7 +17,7 @@ class Auth extends React.Component {
     document.body.classList.remove('bg-danger');
   }
 
-  getRoutes = (routes) => routes.map((prop, key) => {
+  getRoutes = (routeList) => routeList.map((prop, key) => {
     if (prop.layout === '/auth') {
       return (
         <Route
