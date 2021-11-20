@@ -1,28 +1,23 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-underscore-dangle */
+import moment from 'moment';
 import React, { useState } from 'react';
-// reactstrap components
-import {
-  Card,
-  CardHeader,
-  Modal,
-  Container,
-  Media,
-  Row,
-  Table,
-  Button,
-  UncontrolledTooltip,
-} from 'reactstrap';
 // core components
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
-import moment from 'moment';
-import { deleteForm } from '../../actions/forms';
-import Form from './Form';
+// reactstrap components
+import {
+  Button, Card,
+  CardHeader, Container,
+  Media, Modal, Row,
+  Table, UncontrolledTooltip,
+} from 'reactstrap';
 import { FORMAT_DATE } from '../../constants/format';
+import { useFormListQuery } from '../../generated/graphql';
 import { RootState } from '../../store';
+import Form from './Form';
 
 const tHead = ['Title', 'Description', 'Action', 'Modified', 'Responses'];
 
@@ -31,18 +26,22 @@ export default function FormLists(props) {
   const [publicLink, setpublicLink] = useState('');
   const [copiedText, setcopiedText] = useState('');
   const formList = useSelector((store: RootState) => store.forms.forms);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const [{ data, fetching, error }] = useFormListQuery();
 
   const getTableBody = () => {
-    let tablebody = (
+    let tablebody: JSX.Element | JSX.Element[];
+
+    tablebody = (
       <tr>
         <td colSpan={tHead.length} align="center">
           Nothing Found
         </td>
       </tr>
     );
-    if (formList.length > 0) {
-      tablebody = formList.map((form, index) => (
+    if (data !== undefined && data?.forms.length > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      tablebody = data?.forms.map((form:any, index) => (
         <>
           <tr>
             <td>
@@ -50,7 +49,7 @@ export default function FormLists(props) {
                 <Media>
                   <Link
                     id={`form-title-${index}`}
-                    to={`/admin/forms/${form._id}`}
+                    to={`/admin/forms/${form.id}`}
                     style={{ color: 'inherit', textDecoration: 'underline' }}
                   >
                     {form.title}
@@ -67,13 +66,13 @@ export default function FormLists(props) {
             </UncontrolledTooltip>
             <td>
               <Button
-                onClick={(e) => props.history.push(`${props.match.path}/${form._id}?type=2`)}
+                onClick={(e) => props.history.push(`${props.match.path}/${form.id}?type=2`)}
                 color="success"
               >
                 Edit
               </Button>
               <Button
-                onClick={(e) => dispatch(deleteForm(form._id))}
+                // onClick={(e) => dispatch(deleteForm(form.id))}
                 color="danger"
               >
                 Delete
@@ -82,7 +81,7 @@ export default function FormLists(props) {
                 onClick={(e) => {
                   setlinkModal(!linkModal);
                   setpublicLink(
-                    `${window.location.origin}/public/form/${form._id}`,
+                    `${window.location.origin}/public/form/${form.id}`,
                   );
                 }}
                 color="info"

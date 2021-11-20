@@ -7,20 +7,20 @@ import {
 import { useSelector } from 'react-redux';
 
 import { RootState } from '../../store';
-import { useFormListQuery } from '../../generated/graphql';
+// import { useFormListQuery } from '../../generated/graphql';
 
 export default function Header() {
   const formCount = useSelector((store: RootState) => store.forms.formCount);
   const answersCount = useSelector((store : RootState) => store.answers.answersCount);
-  const [{ data, fetching }] = useFormListQuery();
+  // const [{ data, fetching }] = useFormListQuery();
 
-  if (fetching) {
-    //
-  } else if (!data?.forms) {
-    //
-  } else {
-    // console.log('data', data.forms);
-  }
+  // // if (fetching) {
+  // //   //
+  // // } else if (!data?.forms) {
+  // //   //
+  // // } else {
+  // //   // console.log('data', data.forms);
+  // // }
   // const fetchData = async () => {
   //   const response = await getForms();
   //   console.log('Response', response);
